@@ -1,0 +1,72 @@
+{
+	"Transform Message": {
+	  "prefix": "muledx:transform-message",
+	  "body": [
+		"<ee:transform doc:name=\"${1:Transform Message}\" doc:id=\"$RANDOM_HEX-$RANDOM_HEX\">",
+		"  <ee:message>",
+		"    <ee:set-payload>",
+		"      <![CDATA[${2:DataWeave}]]>",
+		"    </ee:set-payload>",
+		"  </ee:message>",
+		"</ee:transform>"
+	  ]
+	},
+	"Mule Flow": {
+	  "prefix": "muledx:flow",
+	  "body": [
+		"<flow name=\"${1:$TM_FILENAME_BASE-Flow}\" doc:id=\"$RANDOM_HEX-$RANDOM_HEX\">",
+		  "",
+		"</flow>"
+	]
+	},
+	"HTTP Listener Config": {
+	  "prefix": "muledx:http-listener-config",
+	  "body": [
+		"<http:listener-config name=\"${1:httpListenerConfig}\" doc:name=\"${2:Listener Config}\" doc:id=\"$RANDOM_HEX-$RANDOM_HEX\">",
+		"  <http:listener-connection host=\"${3:Host}\" port=\"${4:Port}\"/>",
+		"</http:listener-config>"
+	  ]
+	},
+	"HTTP Listener": {
+	  "prefix": "muledx:http-listener",
+	  "body": [
+		"<http:listener path=\"/${1:path}\" config-ref=\"${2:httpListenerConfig}\" doc:name=\"${3:Listener}\" doc:id=\"$RANDOM_HEX-$RANDOM_HEX\"/>"
+	  ]
+	},
+	"Set Payload": {
+	  "prefix": "muledx:set-payload",
+	  "body": [
+		"<set-payload value=\"${1:#[payload]}\" doc:name=\"${2:Set Payload}\" doc:id=\"$RANDOM_HEX-$RANDOM_HEX\"/>"
+	  ]
+	},
+	"Set Variable": {
+	  "prefix": "muledx:set-variable",
+	  "body": [
+		"<set-variable variableName=\"${1:name}\" value=\"${2:#[payload]}\" doc:name=\"${3:Set Variable}\" doc:id=\"$RANDOM_HEX-$RANDOM_HEX\"/>"
+	  ]
+	},
+	"Logger": {
+	  "prefix": "muledx:logger",
+	  "body": [
+		"<logger level=\"INFO\" message=\"${1:#[payload]}\" doc:name=\"${2:Logger}\" doc:id=\"$RANDOM_HEX-$RANDOM_HEX\"/>"
+	  ]
+	},
+	"Database Config - MySQL": {
+	  "prefix": "muledx:db-config-mysql",
+	  "body": [
+		"<db:config name=\"${1:DatabaseConfig}\" doc:name=\"${2:mySQL DB}\" doc:id=\"$RANDOM_HEX-$RANDOM_HEX\">",
+		"  <db:my-sql-connection host=\"${3:Host}\" port=\"${4:Port}\" user=\"${5:Username}\" password=\"${6:Password}\" database=\"${7:DatabaseName}\" />",
+		"</db:config>"
+	  ]
+	},
+	"Database Select": {
+	  "prefix": "muledx:db-select",
+	  "body": [
+		"<db:select config-ref=\"${1:DatabaseConfigRef}\" doc:name=\"${2:Select}\" doc:id=\"$RANDOM_HEX-$RANDOM_HEX\">",
+		"  <db:sql>",
+		"    <![CDATA[${3:SQL}]]>",
+		"  </db:sql>",
+		"</db:select>"
+	  ]
+	}
+  }
